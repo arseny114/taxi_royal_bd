@@ -137,7 +137,7 @@ BEGIN
   );
 
   -- Вычисляем стоимость поездки
-  cost_trip := cur_trip_tariff * date_part('minute', age(cur_trip_start_date, cur_trip_end_date))::FLOAT;
+  cost_trip := cur_trip_tariff * EXTRACT(EPOCH FROM (cur_trip_end_date - cur_trip_start_date))/60;
 
   -- Записываем стоимость поездки в задолженность клиента
   UPDATE taxi_user

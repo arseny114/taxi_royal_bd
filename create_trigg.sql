@@ -28,22 +28,23 @@ BEGIN
   FROM taxi_order_status
   WHERE status_name = 'driver_has_been_found';
 
+  -- Получаем id всех нужных нам статусов заказов
   SELECT taxi_order_status_id
   INTO just_created_id 
   FROM taxi_order_status
   WHERE status_name = 'just_created';
 
   -- Проверяем, что водитель в отказе и в заказе это не разные люди
-  IF NEW.driver_id != current_driver_id_from_taxi_order THEN
+  IF NEW.driver_id IS DISTINCT FROM current_driver_id_from_taxi_order THEN
     RAISE EXCEPTION 'Отказывающийся и выполняющий заказ водитель должен быть одним и тем же человеком';
   END IF;
 
   -- Проверяем, что заказ находится в статусе водитель найден
-  IF current_order_status_id_from_taxi_order = driver_has_been_found_id THEN
-    RAISE EXCEPTION 'Заказ не должен находится в статусе driver_has_been_found';
+  IF current_order_status_id_from_taxi_order IS DISTINCT FROM driver_has_been_found_id THEN
+    RAISE EXCEPTION 'Заказ должен находится в статусе driver_has_been_found';
   END IF;
 
-  -- В случае, если проверки выше пройдены проверяем, что у заказа  нужный статус
+  -- В случае, если проверки выше пройдены
   UPDATE taxi_order 
   SET 
     taxi_order_status_id = just_created_id,

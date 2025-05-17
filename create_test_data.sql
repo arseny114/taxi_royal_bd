@@ -187,7 +187,10 @@ INSERT INTO taxi_order (
 (6, 10, 4, 5, NULL, 3, '2023-10-02 15:20:00+00', '2023-10-02 16:05:00+00', 'Eiffel Tower, Paris', 'Louvre Museum, Paris'),
 
 -- Заказ от которого все отказываются для 4 запроса. он выполняется в текущем времени, статус поиск водителя
-(NULL, 7, 4, 2, 1, 3, '2024-10-01 09:15:00+00', NULL, 'Kensington High Street, London', 'Brick Lane, London');
+(NULL, 7, 4, 2, NULL, 3, '2024-10-01 09:15:00+00', NULL, 'Kensington High Street, London', 'Brick Lane, London');
+
+-- Заказ поездка начата для демонстрации работы второй процедуры
+-- (14, 7, 4, 4, NULL, 2, '2025-05-16 20:15:00+00', NULL, 'Eiffel Tower, Paris', 'Louvre Museum, Paris');
 
 -- Заполнение информацией таблицы Отказы водителей / E9
 INSERT INTO driver_rejection (
